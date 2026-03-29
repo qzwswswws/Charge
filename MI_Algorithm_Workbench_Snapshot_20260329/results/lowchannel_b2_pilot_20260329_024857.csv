@@ -1,0 +1,6 @@
+model_tag,subject,channel_config,classes,best_acc,aver_acc,duration
+lowchannel_b2_diff,1,c3c4,"1,2",0.673611,0.607778,0:06:27.112271
+lowchannel_b2_diff,3,c3c4,"1,2",0.895833,0.865972,0:06:28.610695
+lowchannel_b2_diff,5,c3c4,"1,2",0.576389,0.533000,0:06:22.725057
+lowchannel_b2_diff,8,c3c4,"1,2",0.687500,0.642167,0:06:23.658887
+lowchannel_b2_diff,9,c3c4,"1,2",0.861111,0.796556,0:06:07.233122

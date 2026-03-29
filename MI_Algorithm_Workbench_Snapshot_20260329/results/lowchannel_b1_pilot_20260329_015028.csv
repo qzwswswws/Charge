@@ -1,0 +1,16 @@
+model_tag,subject,channel_config,classes,best_acc,aver_acc,duration
+lowchannel_b1_poolhead,1,c3c4,"1,2",0.645833,0.599139,0:04:16.873357
+lowchannel_b1_poolhead,3,c3c4,"1,2",0.902778,0.853639,0:04:00.623881
+lowchannel_b1_poolhead,5,c3c4,"1,2",0.611111,0.539750,0:03:54.408589
+lowchannel_b1_poolhead,8,c3c4,"1,2",0.701389,0.645361,0:03:55.196785
+lowchannel_b1_poolhead,9,c3c4,"1,2",0.861111,0.786528,0:03:31.197670
+lowchannel_b1_poolhead,1,c3czc4,"1,2,3,4",0.767361,0.671764,0:08:23.969583
+lowchannel_b1_poolhead,3,c3czc4,"1,2,3,4",0.729167,0.665708,0:08:22.027671
+lowchannel_b1_poolhead,5,c3czc4,"1,2,3,4",0.343750,0.284236,0:07:49.068209
+lowchannel_b1_poolhead,8,c3czc4,"1,2,3,4",0.642361,0.538042,0:08:21.485328
+lowchannel_b1_poolhead,9,c3czc4,"1,2,3,4",0.656250,0.584361,0:10:50.943165
+lowchannel_b1_poolhead,1,c3c4,"1,2,3,4",0.576389,0.508028,0:11:39.595156
+lowchannel_b1_poolhead,3,c3c4,"1,2,3,4",0.666667,0.629472,0:11:49.770494
+lowchannel_b1_poolhead,5,c3c4,"1,2,3,4",0.322917,0.280194,0:08:02.142791
+lowchannel_b1_poolhead,8,c3c4,"1,2,3,4",0.461806,0.419139,0:05:51.422038
+lowchannel_b1_poolhead,9,c3c4,"1,2,3,4",0.597222,0.536597,0:03:01.969336
