@@ -1,0 +1,6 @@
+model_tag,subject,channel_config,classes,best_acc,aver_acc,teacher_acc,teacher_ckpt,duration
+kdstudent,1,c3c4,"1,2,3,4",0.614583,0.522153,0.850694,/home/woqiu/下载/git/MI_Algorithm_Workbench/baselines/models/subject_1_20260328_190741/best_model.pth,0:10:04.733036
+kdstudent,3,c3c4,"1,2,3,4",0.684028,0.630653,0.902778,/home/woqiu/下载/git/MI_Algorithm_Workbench/baselines/models/subject_3_20260328_215235/best_model.pth,0:10:38.931588
+kdstudent,5,c3c4,"1,2,3,4",0.333333,0.296611,0.489583,/home/woqiu/下载/git/MI_Algorithm_Workbench/baselines/models/subject_5_20260328_215910/best_model.pth,0:09:56.363440
+kdstudent,8,c3c4,"1,2,3,4",0.486111,0.443875,0.826389,/home/woqiu/下载/git/MI_Algorithm_Workbench/baselines/models/subject_8_20260328_220902/best_model.pth,0:08:55.303828
+kdstudent,9,c3c4,"1,2,3,4",0.618056,0.572000,0.833333,/home/woqiu/下载/git/MI_Algorithm_Workbench/baselines/models/subject_9_20260328_221220/best_model.pth,0:08:38.007848
