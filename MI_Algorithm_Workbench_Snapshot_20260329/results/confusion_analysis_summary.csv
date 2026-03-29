@@ -1,0 +1,6 @@
+condition,n_classes,total_trials,accuracy
+full_4class_9sub,4,2592,0.734182
+c3c4_4class_9sub,4,2592,0.497299
+c3c4_2class_9sub,2,1296,0.707562
+c3c4_4class_pilot5_baseline,4,1440,0.534722
+c3c4_4class_pilot5_kd,4,1440,0.547222

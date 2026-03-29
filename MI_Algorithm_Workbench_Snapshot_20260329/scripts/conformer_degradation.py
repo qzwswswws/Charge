@@ -57,6 +57,9 @@ CHANNEL_PRESETS = {
     'central8': [1, 5, 6, 7, 8, 10, 11, 12],         # FC3,FC4,C5,C3,C1,C2,C4,C6
     'c3czc4':   [7, 9, 11],                           # C3, Cz, C4
     'c3c4':     [7, 11],                              # C3, C4
+    'c3cz':     [7, 9],                               # C3, Cz
+    'czc4':     [9, 11],                              # Cz, C4
+    'c1czc2':   [8, 9, 10],                           # C1, Cz, C2
 }
 
 
@@ -237,19 +240,24 @@ class ExP():
         self.nSub = nsub
         self.start_epoch = 0
         self.root = os.environ.get("BCI2A_DATA_ROOT", "/home/woqiu/下载/standard_2a_data/")
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-        self.Tensor = torch.cuda.FloatTensor
-        self.LongTensor = torch.cuda.LongTensor
+        if self.device.type == "cuda":
+            self.Tensor = torch.cuda.FloatTensor
+            self.LongTensor = torch.cuda.LongTensor
+        else:
+            self.Tensor = torch.FloatTensor
+            self.LongTensor = torch.LongTensor
 
-        self.criterion_l1 = torch.nn.L1Loss().cuda()
-        self.criterion_l2 = torch.nn.MSELoss().cuda()
-        self.criterion_cls = torch.nn.CrossEntropyLoss().cuda()
+        self.criterion_l1 = torch.nn.L1Loss().to(self.device)
+        self.criterion_l2 = torch.nn.MSELoss().to(self.device)
+        self.criterion_cls = torch.nn.CrossEntropyLoss().to(self.device)
 
         self.model = Conformer(
             n_channels=self.n_channels,
             n_classes=self.n_classes,
             window_size=window_size
-        ).cuda()
+        ).to(self.device)
 
         # 实验标识
         ch_tag = f"ch{self.n_channels}"
@@ -304,8 +312,8 @@ class ExP():
         aug_data = aug_data[aug_shuffle, :, :]
         aug_label = aug_label[aug_shuffle]
 
-        aug_data = torch.from_numpy(aug_data).cuda().float()
-        aug_label = torch.from_numpy(aug_label - 1).cuda().long()  # 1-indexed -> 0-indexed
+        aug_data = torch.from_numpy(aug_data).to(self.device).float()
+        aug_label = torch.from_numpy(aug_label - 1).to(self.device).long()  # 1-indexed -> 0-indexed
         return aug_data, aug_label
 
     def get_source_data(self):
@@ -387,8 +395,8 @@ class ExP():
             self.model.parameters(), lr=self.lr, betas=(self.b1, self.b2)
         )
 
-        test_data = Variable(test_data.type(self.Tensor))
-        test_label = Variable(test_label.type(self.LongTensor))
+        test_data = Variable(test_data.to(self.device).float())
+        test_label = Variable(test_label.to(self.device).long())
 
         bestAcc = 0
         averAcc = 0
@@ -401,8 +409,8 @@ class ExP():
             epoch_start_time = time.time()
             self.model.train()
             for i, (img, label) in enumerate(self.dataloader):
-                img = Variable(img.cuda().type(self.Tensor))
-                label = Variable(label.cuda().type(self.LongTensor))
+                img = Variable(img.to(self.device).float())
+                label = Variable(label.to(self.device).long())
 
                 aug_data, aug_label = self.interaug(self.allData, self.allLabel)
                 img = torch.cat((img, aug_data))
@@ -484,7 +492,7 @@ def parse_args():
     parser.add_argument('--epochs', type=int, default=250)
     parser.add_argument('--channel_config', type=str, default=None,
                         choices=list(CHANNEL_PRESETS.keys()),
-                        help='预设通道配置: full/central8/c3czc4/c3c4')
+                        help='预设通道配置: full/central8/c3czc4/c3c4/c3cz/czc4/c1czc2')
     parser.add_argument('--channels', type=str, default=None,
                         help='自定义通道索引(0-based), 逗号分隔, 如 7,9,11')
     parser.add_argument('--classes', type=str, default='1,2,3,4',
@@ -500,8 +508,9 @@ def main():
     random.seed(args.seed)
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
-    torch.cuda.manual_seed(args.seed)
-    torch.cuda.manual_seed_all(args.seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(args.seed)
+        torch.cuda.manual_seed_all(args.seed)
 
     # 解析通道
     if args.channel_config:
@@ -526,6 +535,7 @@ def main():
     print(f"  Classes:  {selected_classes} ({len(selected_classes)}-class)")
     print(f"  Epochs:   {args.epochs}")
     print(f"  Seed:     {args.seed}")
+    print(f"  Device:   {'cuda' if torch.cuda.is_available() else 'cpu'}")
     print(f"{'='*60}\n")
 
     script_dir = os.path.dirname(os.path.abspath(__file__))

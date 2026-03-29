@@ -1,0 +1,9 @@
+tag,family,channel_config,n_channels,n_classes,params_m,trainable_params_m,macs_g,flops_g,state_dict_size_mb,cpu_latency_mean_ms,cpu_latency_std_ms,note
+baseline_full_4class,baseline,full,22,4,0.635972,0.635972,0.061926,0.123851,2.486103,7.675581,0.968630,Main full-channel baseline
+baseline_central8_4class,baseline,central8,8,4,0.613572,0.613572,0.026399,0.052799,2.400654,4.092689,0.375241,8-channel degradation baseline
+baseline_c3czc4_4class,baseline,c3czc4,3,4,0.605572,0.605572,0.013711,0.027423,2.370136,3.120956,0.139804,3-channel degradation baseline
+baseline_c3c4_4class,baseline,c3c4,2,4,0.603972,0.603972,0.011174,0.022347,2.364033,3.694650,1.804725,2-channel degradation baseline
+baseline_c3c4_2class,baseline,c3c4,2,2,0.603906,0.603906,0.011174,0.022347,2.363789,3.245989,0.151468,2-channel engineering baseline
+lowch_b1_c3c4_2class,lowch_b1,c3c4,2,2,0.127115,0.127115,0.010699,0.021398,0.543774,3.043982,0.295594,Batch 1 attention-pooling variant
+lowch_b2_c3c4_2class,lowch_b2,c3c4,2,2,0.128715,0.128715,0.013236,0.026473,0.552261,3.164729,0.194085,Batch 2 diff-branch variant
+kd_student_c3c4_4class,baseline,c3c4,2,4,0.603972,0.603972,0.011174,0.022347,2.364033,3.356675,1.220058,Deploy-time student shares the same inference graph as baseline c3c4 / 4-class
