@@ -1,0 +1,6 @@
+subject,model_name,n_channels,n_classes,window_size,seed,epochs,best_acc,aver_acc,source,duration
+1,b2_baseline,3,2,8,42,250,0.784375,0.726738,fresh_run,0:05:13.450744
+3,b2_baseline,3,2,8,42,250,0.581250,0.540887,fresh_run,0:04:42.593121
+5,b2_baseline,3,2,8,42,250,0.871875,0.791200,fresh_run,0:06:05.285297
+8,b2_baseline,3,2,8,42,250,0.943750,0.905588,fresh_run,0:05:43.989009
+9,b2_baseline,3,2,8,42,250,0.921875,0.891225,fresh_run,0:05:30.435342

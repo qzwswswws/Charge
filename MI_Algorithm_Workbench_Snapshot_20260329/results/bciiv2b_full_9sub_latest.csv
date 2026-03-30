@@ -1,0 +1,10 @@
+subject,model_name,n_channels,n_classes,window_size,seed,epochs,best_acc,aver_acc,source,duration
+1,b2_baseline,3,2,8,42,250,0.784375,0.726738,reused_pilot,0:05:13.450744
+2,b2_baseline,3,2,8,42,250,0.625000,0.574200,fresh_run,0:04:56.911211
+3,b2_baseline,3,2,8,42,250,0.581250,0.540887,reused_pilot,0:04:42.593121
+4,b2_baseline,3,2,8,42,250,0.987500,0.975675,fresh_run,0:05:27.524611
+5,b2_baseline,3,2,8,42,250,0.871875,0.791200,reused_pilot,0:06:05.285297
+6,b2_baseline,3,2,8,42,250,0.884375,0.812500,fresh_run,0:04:44.850154
+7,b2_baseline,3,2,8,42,250,0.856250,0.816438,fresh_run,0:05:25.775763
+8,b2_baseline,3,2,8,42,250,0.943750,0.905588,reused_pilot,0:05:43.989009
+9,b2_baseline,3,2,8,42,250,0.921875,0.891225,reused_pilot,0:05:30.435342

@@ -1,0 +1,11 @@
+subject,task_tag,channel_config,classes,best_acc,aver_acc,source,duration
+1,full_4class,full,"1,2,3,4",0.7881944444444444,0.7163472222222222,reused_complete_log,
+3,full_4class,full,"1,2,3,4",0.9097222222222222,0.7859583333333335,reused_complete_log,
+5,full_4class,full,"1,2,3,4",0.40625,0.3466944444444445,reused_complete_log,
+8,full_4class,full,"1,2,3,4",0.8125,0.7240694444444441,reused_complete_log,
+9,full_4class,full,"1,2,3,4",0.843750,0.753528,fresh_run,1:00:20.937301
+1,c3c4_2class,c3c4,"1,2",0.638889,0.601389,fresh_run,0:05:04.711354
+3,c3c4_2class,c3c4,"1,2",0.902778,0.846944,fresh_run,0:04:55.396428
+5,c3c4_2class,c3c4,"1,2",0.562500,0.513667,fresh_run,0:04:51.423897
+8,c3c4_2class,c3c4,"1,2",0.638889,0.597972,fresh_run,0:03:27.161184
+9,c3c4_2class,c3c4,"1,2",0.868056,0.838389,fresh_run,0:00:21.815358

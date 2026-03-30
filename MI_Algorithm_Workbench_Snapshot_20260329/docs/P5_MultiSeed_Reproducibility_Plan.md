@@ -15,6 +15,66 @@
 
 ---
 
+## 1.1 当前进展更新（`2026-03-29`）
+
+截至当前，`P5-A` 的三条核心任务已经完成：
+
+### `P5-A1`：`C3/C4 / 2-class / 9被试 / 3 seeds`
+
+对应文件：
+
+- [multi_seed_c3c4_2class_raw_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/multi_seed_c3c4_2class_raw_latest.csv)
+- [multi_seed_c3c4_2class_summary_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/multi_seed_c3c4_2class_summary_latest.csv)
+
+`overall_seed_means` 为：
+
+- `Best Acc = 0.708076 ± 0.005420`
+- `Aver Acc = 0.646665 ± 0.006278`
+
+结论：
+
+- `C3/C4 / 2-class` 主线在 `3` 个种子下非常稳定，当前论文主结论不依赖单次偶然结果。
+
+### `P5-A2`：`C3/C4 / 4-class / 9被试 / 3 seeds`
+
+对应文件：
+
+- [multi_seed_c3c4_4class_raw_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/multi_seed_c3c4_4class_raw_latest.csv)
+- [multi_seed_c3c4_4class_summary_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/multi_seed_c3c4_4class_summary_latest.csv)
+
+`overall_seed_means` 为：
+
+- `Best Acc = 0.499482 ± 0.003461`
+- `Aver Acc = 0.443938 ± 0.003323`
+
+结论：
+
+- `C3/C4 / 4-class` 在多 seed 下仍稳定偏低，说明其困难性是结构性问题，不是初始化偶然导致的。
+
+### `P5-A3`：`C3/Cz/C4 / 2-class / 5被试 / 3 seeds`
+
+对应文件：
+
+- [multi_seed_c3czc4_2class_pilot_raw_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/multi_seed_c3czc4_2class_pilot_raw_latest.csv)
+- [multi_seed_c3czc4_2class_pilot_summary_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/multi_seed_c3czc4_2class_pilot_summary_latest.csv)
+
+`overall_seed_means` 为：
+
+- `Best Acc = 0.854630 ± 0.002122`
+- `Aver Acc = 0.787357 ± 0.003217`
+
+结论：
+
+- `C3/Cz/C4` 不仅在 `P4` pilot 中更强，在多随机种子下也稳定更强。
+
+因此，`P5` 当前已经回答了三句对论文最关键的话：
+
+1. `2导 / 2分类` 是稳定可行的。
+2. `2导 / 4分类` 的退化不是 seed 偶然。
+3. 若允许增加到 `3导`，`C3/Cz/C4` 确实更强。
+
+---
+
 ## 2. 为什么 P5 现在很重要
 
 截至当前，论文已经具备以下主线证据：
@@ -308,17 +368,18 @@ KD 本身在论文中的定位是：
 
 ## 9. 当前建议
 
-如果现在就准备继续动手，我最建议的不是先碰 `22导 / 4分类`，而是：
+如果现在继续推进，最建议的已经不是回头重复 `P5-A`，而是：
 
-- 先启动 `P5-A1`
-- 再紧接着做 `P5-A2`
+- 先补 `P6` 的训练数据比例敏感性实验
+- 或在设备恢复后启动 `P5-B1`：`22导 / 4-class / 9被试 / 3 seeds`
+- 若希望进一步完善补充实验，再做 `P5-B2`：`KD / 5被试 / 3 seeds`
 
 原因很简单：
 
-- 这两条最直接服务论文主线
-- 当前脚本已支持 CPU 回退
-- 设备异常不会完全阻断推进
+- `P5-A1/A2/A3` 已经足以支撑当前主线的统计稳定性
+- 继续追加低通道 seed 重复的收益已经明显下降
+- 下一步更缺的是“数据成本”证据或“全通道统计封口”
 
 一句话收束：
 
-> `P5` 最该先做的是把双导主线从“单次结果成立”升级为“多随机种子下仍稳定成立”。 
+> `P5` 的第一阶段已经完成，它已经把双导主线从“单次结果成立”升级为“多随机种子下仍稳定成立”；后续重点应转向数据比例敏感性或全通道统计封口。 

@@ -274,21 +274,47 @@
 
 ## P5. 多随机种子复现与统计检验
 
+### 进展更新（`2026-03-29`）
+
+`P5` 的第一阶段已经完成，当前已落地三组多随机种子复现：
+
+- `P5-A1`：`C3/C4 / 2-class / 9被试 / 3 seeds`  
+  结果见 [multi_seed_c3c4_2class_summary_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/multi_seed_c3c4_2class_summary_latest.csv)  
+  `overall_seed_means` 为：
+  - `Best Acc = 0.708076 ± 0.005420`
+  - `Aver Acc = 0.646665 ± 0.006278`
+
+- `P5-A2`：`C3/C4 / 4-class / 9被试 / 3 seeds`  
+  结果见 [multi_seed_c3c4_4class_summary_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/multi_seed_c3c4_4class_summary_latest.csv)  
+  `overall_seed_means` 为：
+  - `Best Acc = 0.499482 ± 0.003461`
+  - `Aver Acc = 0.443938 ± 0.003323`
+
+- `P5-A3`：`C3/Cz/C4 / 2-class / 5被试 / 3 seeds`  
+  结果见 [multi_seed_c3czc4_2class_pilot_summary_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/multi_seed_c3czc4_2class_pilot_summary_latest.csv)  
+  `overall_seed_means` 为：
+  - `Best Acc = 0.854630 ± 0.002122`
+  - `Aver Acc = 0.787357 ± 0.003217`
+
+当前可直接提炼出的结论是：
+
+- `C3/C4 / 2-class` 主线不仅单次结果成立，而且跨 `3` 个种子也非常稳定。
+- `C3/C4 / 4-class` 在多 seed 下仍稳定偏低，说明其困难性不是随机初始化造成的偶然现象。
+- 若允许扩展到 `3` 导，`C3/Cz/C4` 不仅 pilot 更强，而且跨种子也稳定更强。
+
 ### 排名原因
 
 这项工作是论文严谨性提升最大的项目之一，但相比前四项，它需要更多训练时间，因此放在第二梯队。
 
-### 推荐先做的对象
+### 若继续推进，推荐下一步对象
 
-先不要全铺开，先做最关键的三条：
+在 `P5-A1/A2/A3` 已完成的前提下，后续更值得继续的是：
 
-- `22导 / 4分类 baseline`
-- `2导 / 4分类 baseline`
-- `2导 / 2分类 baseline`
+- `22导 / 4分类 baseline` 多种子复现
+- `KD student / 2导 / 4分类` 多种子复现
+- 基于现有 `P5-A1/A2` 结果补 paired 检验或 Wilcoxon 检验
 
-若资源允许，再加：
-
-- `KD student / 2导 / 4分类`
+不建议再回头重复低价值的双导主线 seed 扩展，因为这一部分已经足够稳定。
 
 ### 推荐种子数
 
@@ -303,8 +329,10 @@
 
 ### 推荐执行策略
 
-先做 `pilot 被试 × 多 seed`，确认方差量级；  
-若方差可控，再扩到 `9` 被试。
+`P5-A` 的策略已经证明有效：  
+优先复用已有 `seed=42` 汇总，再补跑其余种子。  
+
+如果继续做 `P5-B`，建议保持同样方法，以减少重复计算。
 
 ### 预估耗时
 
@@ -323,6 +351,24 @@
 ---
 
 ## P6. 训练数据比例敏感性实验
+
+### 进展更新（`2026-03-29`）
+
+该项已完成首轮 `5` 被试 pilot。  
+结果文件为 [data_fraction_pilot_summary_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/data_fraction_pilot_summary_latest.csv)，对应写作稿为 [Data_Fraction_Sensitivity_Summary.md](/home/woqiu/下载/git/MI_Algorithm_Workbench/00_AI_Management/Output_Drafts/Data_Fraction_Sensitivity_Summary.md)。
+
+当前结果如下：
+
+- `25%`: `Best 0.690278`, `Aver 0.620094`
+- `50%`: `Best 0.725000`, `Aver 0.662817`
+- `75%`: `Best 0.747222`, `Aver 0.690878`
+- `100%`: `Best 0.750000`, `Aver 0.697506`
+
+当前可直接提炼出的结论是：
+
+- 训练数据比例降低会带来性能下降，但不是线性崩塌。
+- `75%` 的训练数据已经非常接近 `100%` baseline。
+- `25%` 虽然仍可运行，但性能下降已较明显。
 
 ### 排名原因
 
@@ -345,8 +391,12 @@
 
 ### 推荐执行策略
 
-先做 `S1/S3/S5/S8/S9` pilot。  
-若趋势清楚，再决定是否扩到 `9` 被试。
+首轮 `S1/S3/S5/S8/S9` pilot 已完成。  
+
+若后续需要扩展，更值得继续的是：
+
+- 扩到 `9` 被试
+- 或对 `75%` 与 `100%` 做更细的统计比较
 
 ### 预估耗时
 
@@ -368,6 +418,33 @@
 ---
 
 ## P7. 与传统算法对比实验
+
+### 进展更新（`2026-03-30`）
+
+该项已完成“最小经典深度对照”的第一步，即：
+
+- `EEGNet`
+- `22导 / 4分类 / 5被试`
+- `C3/C4 / 2分类 / 5被试`
+
+已落地的关键材料包括：
+
+- [eegnet_baseline.py](/home/woqiu/下载/git/MI_Algorithm_Workbench/baselines/eegnet_baseline.py)
+- [run_eegnet_pilot.py](/home/woqiu/下载/git/MI_Algorithm_Workbench/baselines/run_eegnet_pilot.py)
+- [eegnet_pilot_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/eegnet_pilot_latest.csv)
+- [P7_EEGNet_Pilot_Summary.md](/home/woqiu/下载/git/MI_Algorithm_Workbench/00_AI_Management/Output_Drafts/P7_EEGNet_Pilot_Summary.md)
+
+当前 `EEGNet` pilot 的总体结果为：
+
+- `22导 / 4分类`：`Avg Best = 0.752083`，`Avg Aver = 0.665319`
+- `C3/C4 / 2分类`：`Avg Best = 0.722222`，`Avg Aver = 0.679672`
+
+与当前主线 `Conformer` 相比：
+
+- `22导 / 4分类` 上两者处于同一量级
+- `C3/C4 / 2分类` 上 `Conformer` 仍然更优
+
+因此，`P7` 已经完成了“补齐经典深度对照”的主要任务。
 
 ### 排名原因
 
@@ -407,11 +484,40 @@
 
 ### 当前优先级
 
-`中高`
+`已完成最小版本`
 
 ---
 
 ## P8. BCI Competition IV 2b 外部验证
+
+### 进展更新（`2026-03-30`）
+
+该项已从“准备层打通”推进到“`9` 被试和 `3` 个随机种子结果都已完成”的状态。
+
+已落地的关键材料包括：
+
+- [conformer_2b_baseline.py](/home/woqiu/下载/git/MI_Algorithm_Workbench/baselines/conformer_2b_baseline.py)
+- [preprocess_bci_iv_2b.py](/home/woqiu/下载/git/MI_Algorithm_Workbench/preprocessing/preprocess_bci_iv_2b.py)
+- [P8_2B_Readiness_Note.md](/home/woqiu/下载/git/MI_Algorithm_Workbench/00_AI_Management/Output_Drafts/P8_2B_Readiness_Note.md)
+
+当前已完成：
+
+- `45` 个 `gdf` 原始 session 解压
+- `45` 个标签 `.mat` 解压
+- `45/45` 个 `strict_TE` 风格 `.mat` 预处理成功
+- `subject 1` 的 baseline 读取检查通过
+- `subject 1` 的 `1 epoch` 训练 smoke 通过
+- `5` 被试 `pilot` 已完成，结果文件为 [bciiv2b_pilot_2class_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/bciiv2b_pilot_2class_latest.csv)
+- `9` 被试扩展已完成，结果文件为 [bciiv2b_full_9sub_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/bciiv2b_full_9sub_latest.csv)
+- `3` 个随机种子复现已完成，结果文件为 [multi_seed_2b_3ch_2class_summary_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/multi_seed_2b_3ch_2class_summary_latest.csv)
+- 对应总结稿为 [BCIIV2B_MultiSeed_Summary.md](/home/woqiu/下载/git/MI_Algorithm_Workbench/00_AI_Management/Output_Drafts/BCIIV2B_MultiSeed_Summary.md)
+
+当前 `3` 个随机种子统计结果为：
+
+- `Best Acc = 0.828406 ± 0.002382`
+- `Aver Acc = 0.778700 ± 0.002691`
+
+这意味着 `P8` 当前已经不再受“数据格式和读取工具”阻塞，而且已经形成可写入论文正文的外部验证统计结果。
 
 ### 排名原因
 
@@ -419,11 +525,11 @@
 
 ### 现有基础
 
-工作区已有：
+工作区现有基础已经包括：
 
 - [BCIIV2b.m](/home/woqiu/下载/git/MI_Algorithm_Workbench/preprocessing/BCIIV2b.m)
-
-说明这条线不是从零开始。
+- [preprocess_bci_iv_2b.py](/home/woqiu/下载/git/MI_Algorithm_Workbench/preprocessing/preprocess_bci_iv_2b.py)
+- [conformer_2b_baseline.py](/home/woqiu/下载/git/MI_Algorithm_Workbench/baselines/conformer_2b_baseline.py)
 
 ### 推荐定位
 
@@ -435,6 +541,7 @@
 
 - 优先验证 `双导 / 二分类`
 - 不建议一开始就在 `2b` 上追求完整四分类主表
+- 当前最合适的下一步已变成：转入最小经典对照实验
 
 ### 预估耗时
 
@@ -452,6 +559,14 @@
 ### 当前优先级
 
 `中高`
+
+### 当前建议的下一步
+
+按当前证据，后续顺序建议为：
+
+1. 先启动 `P7` 的最小 `EEGNet` 对照
+2. 如果篇幅和时间允许，再考虑补 `2b` 上的双导对照
+3. 最后再决定是否继续扩更多传统方法
 
 ---
 
@@ -478,7 +593,7 @@
 - P5 多随机种子复现
 - P6 训练数据比例敏感性
 
-这两项更适合在前两条线启动后同步排队执行。
+其中 `P5-A` 已完成，当前更适合把 `P6` 提到前面，同时把 `P5-B1/B2` 作为设备恢复后的统计封口项。
 
 ## 线路 D：较慢但完整度高
 
@@ -542,6 +657,6 @@
 
 ## 8. 一句话结论
 
-接下来最优的推进方式不是“按研究主题平均发力”，而是：
+接下来最优的推进方式不是“继续平均铺开新方向”，而是：
 
-> 先用复杂度分析、错误分析、KD 扩被试和通道组合 pilot 在最短时间内拿到一批新的可写结果，再进入多随机种子复现、数据比例实验、传统对照和 `2b` 外部验证这些更耗时但价值更高的补充。
+> 当前快速扩充已经完成到 `P7/P8` 层面，主线证据链已较完整；后续若仍需补强，优先考虑 `22导` 或 `KD` 的统计封口，否则应把重心转回论文写作、图表整理与章节收束。
