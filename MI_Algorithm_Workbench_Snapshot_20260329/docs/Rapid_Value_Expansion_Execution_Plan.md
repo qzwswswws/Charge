@@ -570,6 +570,75 @@
 
 ---
 
+## P10. PhysioNet eegmmidb 外部验证
+
+### 进展更新（`2026-03-30`）
+
+该项已从“单被试验证”推进到 `9` 被试正式结果。
+
+已落地的关键材料包括：
+
+- [preprocess_physionet_eegmmidb.py](/home/woqiu/下载/git/MI_Algorithm_Workbench/preprocessing/preprocess_physionet_eegmmidb.py)
+- [conformer_physionet_eegmmidb_baseline.py](/home/woqiu/下载/git/MI_Algorithm_Workbench/baselines/conformer_physionet_eegmmidb_baseline.py)
+- [run_physionet_eegmmidb_pilot.py](/home/woqiu/下载/git/MI_Algorithm_Workbench/baselines/run_physionet_eegmmidb_pilot.py)
+- [run_physionet_eegmmidb_full.py](/home/woqiu/下载/git/MI_Algorithm_Workbench/baselines/run_physionet_eegmmidb_full.py)
+- [P10_PhysioNet_EEGMMIDB_Preparation_Note.md](/home/woqiu/下载/git/MI_Algorithm_Workbench/00_AI_Management/Output_Drafts/P10_PhysioNet_EEGMMIDB_Preparation_Note.md)
+- [P10_PhysioNet_EEGMMIDB_Full_9Sub_Summary.md](/home/woqiu/下载/git/MI_Algorithm_Workbench/00_AI_Management/Output_Drafts/P10_PhysioNet_EEGMMIDB_Full_9Sub_Summary.md)
+- [physionet_eegmmidb_full_9sub_latest.csv](/home/woqiu/下载/git/MI_Algorithm_Workbench/results_summaries/physionet_eegmmidb_full_9sub_latest.csv)
+
+当前协议为：
+
+- 数据集：`PhysioNet eegmmidb`
+- 任务：想象左右手 `2-class`
+- 通道：`C3/Cz/C4`
+- 训练运行：`R04 + R08`
+- 测试运行：`R12`
+- `epochs = 250`
+- `seed = 42`
+
+当前 `9` 被试结果为：
+
+- `Avg Best = 0.777778`
+- `Avg Aver = 0.609541`
+
+### 关键边界
+
+这条结果需要和 `2a/2b` 明确区分：
+
+- `eegmmidb` 不是 `BCI Competition` 数据集
+- 当前采用的是 `run-level split`
+- 每个被试只使用 `3` 个 run
+- 每个被试总共只有 `45` 个目标 trial
+  - `30` 个训练
+  - `15` 个测试
+
+因此，它更适合作为：
+
+- 外部数据源补充验证
+- 轻量协议下的迁移性检查
+
+而不是与 `2a/2b` 做完全等价的数值比较。
+
+### 当前判断
+
+- 从 `5` 被试扩到 `9` 被试后，这条线没有崩掉
+- `Avg Best` 反而从 `0.7600` 提升到 `0.7778`
+- 说明 `C3/Cz/C4 / 2-class` 在公开外部 MI 数据集上具备继续成立的可能
+
+### 当前优先级
+
+`已完成首轮正式结果`
+
+### 当前建议的下一步
+
+如果仍要继续扩展，建议优先级如下：
+
+1. 先把当前 `9` 被试结果整理进论文与总述
+2. 如仍需补强，再考虑多随机种子复现
+3. 不建议立刻继续扩到更大规模或更多任务类型，以免偏离主线
+
+---
+
 ## 5. 推荐并行方式
 
 如果希望尽快形成一批可以写进论文的新材料，建议按下面方式并行：
@@ -659,4 +728,4 @@
 
 接下来最优的推进方式不是“继续平均铺开新方向”，而是：
 
-> 当前快速扩充已经完成到 `P7/P8` 层面，主线证据链已较完整；后续若仍需补强，优先考虑 `22导` 或 `KD` 的统计封口，否则应把重心转回论文写作、图表整理与章节收束。
+> 当前快速扩充已经完成到 `P7/P8/P10` 层面，主线证据链已较完整；后续若仍需补强，优先考虑 `22导`、`KD` 或 `PhysioNet` 的统计封口，否则应把重心转回论文写作、图表整理与章节收束。

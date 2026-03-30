@@ -1,0 +1,6 @@
+subject,model_name,channel_mode,n_classes,window_size,seed,epochs,run_tag,best_acc,aver_acc,source,duration
+1,physionet_conformer,c3czc4,2,8,42,250,tr0408_te12,0.800000,0.591733,fresh_run,0:00:49.812482
+3,physionet_conformer,c3czc4,2,8,42,250,tr0408_te12,0.733333,0.544267,fresh_run,0:00:31.857641
+5,physionet_conformer,c3czc4,2,8,42,250,tr0408_te12,0.666667,0.518400,fresh_run,0:00:31.129946
+8,physionet_conformer,c3czc4,2,8,42,250,tr0408_te12,0.866667,0.590133,fresh_run,0:00:46.213392
+9,physionet_conformer,c3czc4,2,8,42,250,tr0408_te12,0.733333,0.545867,fresh_run,0:00:28.551619

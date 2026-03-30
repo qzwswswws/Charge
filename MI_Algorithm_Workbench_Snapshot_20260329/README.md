@@ -18,6 +18,7 @@ This snapshot preserves the current MI experiment outcomes from the local `MI_Al
 - Multi-seed reproducibility summaries for `2a`
 - Training-data fraction sensitivity pilot
 - `BCI Competition IV 2b` external validation (`9` subjects, multi-seed)
+- `PhysioNet eegmmidb` external validation (`9` subjects)
 - Minimal `EEGNet` classical deep-learning comparison
 - Core planning, rationale, and thesis-writing summary documents
 - Key reproducibility scripts for degradation, KD, profiling, confusion analysis, channel-combination pilot, `2b`, and `EEGNet`
@@ -71,6 +72,11 @@ This snapshot preserves the current MI experiment outcomes from the local `MI_Al
 - `9 subjects / 3 seeds / C3-Cz-C4 / 2-class`: `Best = 0.8284 ± 0.0024`, `Aver = 0.7787 ± 0.0027`
 - Interpretation: the central 3-channel 2-class route remains strong and statistically stable on an external MI dataset
 
+### `PhysioNet eegmmidb` external validation
+
+- `9 subjects / single seed / C3-Cz-C4 / 2-class / R04+R08 train / R12 test`: `Avg Best = 0.7778`, `Avg Aver = 0.6095`
+- Interpretation: the current Conformer route transfers to a second public MI dataset with a positive overall trend, but this protocol uses a shorter run-level split and should be treated as external support rather than a directly equivalent replacement for `2a/2b`
+
 ### `EEGNet` minimal pilot comparison (`2a`, `5` subjects)
 
 - `22ch / 4class`: `Avg Best = 0.7521`, `Avg Aver = 0.6653`
@@ -102,6 +108,7 @@ The lightweight low-channel modifications have moved closer to the original base
 - If hardware can expand to `3` central electrodes, `C3/Cz/C4` is now the strongest candidate
 - For strict `2-channel` settings, `Cz/C4` is worth further verification against `C3/C4`
 - `2b` results now show that the central `3-channel / 2-class` route is not only a `2a` artifact, but a stable cross-dataset finding
+- `PhysioNet eegmmidb` further supports cross-dataset transferability, but under a shorter per-subject protocol (`45` target trials total)
 - `EEGNet` now provides a valid horizontal comparison, and the mainline conclusion still stands: on the key `C3/C4 / 2-class` task, the current Conformer route remains stronger
 
 ## Notes
